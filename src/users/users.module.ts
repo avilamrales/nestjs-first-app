@@ -4,12 +4,18 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { User, UserSchema } from './schemas/user.schema';
 
 @Module({
+  imports: [
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+  ],
   controllers: [UsersController],
   providers: [UsersService],
 })
